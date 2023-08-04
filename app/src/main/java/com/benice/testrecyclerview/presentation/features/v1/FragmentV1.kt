@@ -9,6 +9,8 @@ import com.benice.testrecyclerview.R
 import com.benice.testrecyclerview.databinding.FragmentV1Binding
 import com.benice.testrecyclerview.presentation.DataViewModel
 import com.benice.testrecyclerview.presentation.SealedItem
+import com.benice.testrecyclerview.presentation.features.v1.viewitems.ElementViewItem
+import com.benice.testrecyclerview.presentation.features.v1.viewitems.HeaderViewItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -17,19 +19,24 @@ class FragmentV1 : Fragment(R.layout.fragment_v1) {
     private val viewModel by viewModels<DataViewModel>()
 
     private val adapter by lazy {
-        RecyclerViewAdapterV1(object : DataItemListener {
-            override fun onItemClicked(item: SealedItem) {
-                TODO("Not yet implemented")
-            }
+        RecyclerViewAdapterV1(
+            listOf(
+                HeaderViewItem(),
+                ElementViewItem(object : DataItemListener {
+                    override fun onItemClicked(item: SealedItem) {
+                        TODO("Not yet implemented")
+                    }
 
-            override fun onDeleteClicked(item: SealedItem) {
-                TODO("Not yet implemented")
-            }
+                    override fun onDeleteClicked(item: SealedItem) {
+                        TODO("Not yet implemented")
+                    }
 
-            override fun onFavoriteClicked(item: SealedItem) {
-                TODO("Not yet implemented")
-            }
-        })
+                    override fun onFavoriteClicked(item: SealedItem) {
+                        TODO("Not yet implemented")
+                    }
+                })
+            )
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
