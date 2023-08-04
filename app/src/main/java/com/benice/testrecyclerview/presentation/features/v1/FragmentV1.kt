@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.benice.testrecyclerview.R
 import com.benice.testrecyclerview.databinding.FragmentV1Binding
 import com.benice.testrecyclerview.presentation.DataViewModel
-import com.benice.testrecyclerview.presentation.ElementItem
+import com.benice.testrecyclerview.presentation.SealedItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,15 +18,15 @@ class FragmentV1 : Fragment(R.layout.fragment_v1) {
 
     private val adapter by lazy {
         RecyclerViewAdapterV1(object : DataItemListener {
-            override fun onItemClicked(item: ElementItem) {
+            override fun onItemClicked(item: SealedItem) {
                 TODO("Not yet implemented")
             }
 
-            override fun onDeleteClicked(item: ElementItem) {
+            override fun onDeleteClicked(item: SealedItem) {
                 TODO("Not yet implemented")
             }
 
-            override fun onFavoriteClicked(item: ElementItem) {
+            override fun onFavoriteClicked(item: SealedItem) {
                 TODO("Not yet implemented")
             }
         })

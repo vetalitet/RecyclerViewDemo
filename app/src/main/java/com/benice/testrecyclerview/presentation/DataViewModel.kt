@@ -16,6 +16,10 @@ class DataViewModel @Inject constructor(
     private val repository: ElementRepository
 ) : ViewModel() {
 
+    companion object {
+        const val CHUNKED_SIZE = 5
+    }
+
     private val _stateLiveData = MutableLiveData<State>()
     val stateLiveData: LiveData<State> = _stateLiveData
 
@@ -30,15 +34,22 @@ class DataViewModel @Inject constructor(
     private fun merge(list: List<Element>): State {
         return State(
             totalCount = list.size,
-            items = list.map {
-                ElementItem(it)
-            }
+            items = list
+                .chunked(5)
+                .mapIndexed { index, elements ->
+                    val fromIndex = index * CHUNKED_SIZE + 1
+                    val toIndex = fromIndex + elements.size - 1
+                    val header = SealedItem.HeaderItem("[$fromIndex .. $toIndex]")
+                    val items = elements.map { SealedItem.ElementItem(it) }
+                    listOf(header) + items
+                }
+                .flatten()
         )
     }
 
     class State(
         val totalCount: Int,
-        val items: List<ElementItem>
+        val items: List<SealedItem>
     )
 
 }
